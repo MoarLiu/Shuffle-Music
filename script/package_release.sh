@@ -2,6 +2,7 @@
 set -euo pipefail
 
 APP_NAME="Shuffle Music"
+ARTIFACT_NAME="${APP_NAME// /-}"
 EXECUTABLE_NAME="ShuffleMusic"
 BUNDLE_ID="com.crazyjal.ShuffleMusic"
 APP_VERSION="${APP_VERSION:-0.1.0}"
@@ -20,7 +21,7 @@ APP_MACOS="$APP_CONTENTS/MacOS"
 APP_BINARY="$APP_MACOS/$EXECUTABLE_NAME"
 INFO_PLIST="$APP_CONTENTS/Info.plist"
 STAGING_DIR="$RELEASE_ROOT/staging"
-DMG_PATH="$RELEASE_ROOT/$APP_NAME-$APP_VERSION.dmg"
+DMG_PATH="$RELEASE_ROOT/$ARTIFACT_NAME-$APP_VERSION.dmg"
 CHECKSUM_PATH="$DMG_PATH.sha256"
 
 rm -rf "$RELEASE_ROOT"
@@ -74,7 +75,7 @@ if [[ -n "$NOTARY_PROFILE" ]]; then
   xcrun stapler staple "$DMG_PATH"
 fi
 
-shasum -a 256 "$DMG_PATH" > "$CHECKSUM_PATH"
+shasum -a 256 "$DMG_PATH" | awk -v filename="$(basename "$DMG_PATH")" '{print $1 "  " filename}' > "$CHECKSUM_PATH"
 
 echo "DMG: $DMG_PATH"
 echo "SHA256: $(awk '{print $1}' "$CHECKSUM_PATH")"
