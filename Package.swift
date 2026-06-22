@@ -19,6 +19,7 @@ let package = Package(
             name: "ShuffleMusic",
             dependencies: ["ShuffleMusicCore"],
             path: "Sources/ShuffleMusic",
+            exclude: ["Resources"],
             linkerSettings: [
                 .linkedFramework("AppKit"),
                 .linkedFramework("AVFoundation"),

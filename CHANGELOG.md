@@ -6,6 +6,7 @@
 - Added independent menu bar controls for player, previous, play/pause, and next.
 - Added floating mini player panel extracted from Companion.
 - Added random playback catalog from fixed NetEase Music playlist/chart sources.
+- Added a custom macOS app icon for Finder, DMG, and install views.
 
 Compatibility:
 
